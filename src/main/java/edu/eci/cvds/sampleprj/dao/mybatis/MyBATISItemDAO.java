@@ -1,7 +1,9 @@
 package edu.eci.cvds.sampleprj.dao.mybatis;
+import com.google.inject.Inject;
 import edu.eci.cvds.sampleprj.dao.ItemDAO;
 import edu.eci.cvds.sampleprj.dao.PersistenceException;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper;
+import edu.eci.cvds.samples.entities.Item;
 
 public class MyBATISItemDAO implements ItemDAO {
     @Inject
