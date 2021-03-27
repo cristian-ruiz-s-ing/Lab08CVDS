@@ -6,4 +6,4 @@ deployment:
   staging:
     branch: master
     heroku: 
-      appname: lab08cvds2021
+      appname: app-lab08

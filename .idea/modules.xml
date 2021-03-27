@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MyBATIS-Guice-DAO-VideorentalServicesLayer.iml" filepath="$PROJECT_DIR$/MyBATIS-Guice-DAO-VideorentalServicesLayer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Lab08CVDS.iml" filepath="$PROJECT_DIR$/.idea/Lab08CVDS.iml" />
     </modules>
   </component>
 </project>

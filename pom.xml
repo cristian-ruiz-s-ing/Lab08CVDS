@@ -123,6 +123,7 @@
                     <username>sa</username>
                     <password></password>
                     <autocommit>false</autocommit>
+                    <!--suppress UnresolvedMavenProperty -->
                     <skip>${maven.test.skip}</skip>
                 </configuration>
                 <executions>

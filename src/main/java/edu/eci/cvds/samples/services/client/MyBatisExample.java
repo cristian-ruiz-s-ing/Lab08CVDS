@@ -46,7 +46,10 @@ import edu.eci.cvds.samples.services.ServiciosAlquilerFactory;
 import edu.eci.cvds.samples.services.impl.ServiciosAlquilerImpl;
 import edu.eci.cvds.samples.services.impl.ServiciosAlquilerItemsStub;
 
-
+/**
+ *
+ * @author hcadavid
+ */
 public class MyBatisExample {
 
     /**

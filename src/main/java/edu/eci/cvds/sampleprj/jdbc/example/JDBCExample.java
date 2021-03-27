@@ -26,6 +26,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ *
+ * @author hcadavid
+ */
 public class JDBCExample {
 
     private static PreparedStatement prepare = null;
@@ -52,7 +56,7 @@ public class JDBCExample {
             }
             System.out.println("-----------------------");
 
-            int suCodigoECI=2128980;
+            int suCodigoECI=21544274;
             registrarNuevoProducto(con, suCodigoECI, "prueba 2", 21500);            
             con.commit();      
             
