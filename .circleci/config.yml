@@ -1,9 +1,17 @@
 version: 2.1
 
 orbs:
+<<<<<<< HEAD
   maven: circleci/maven@0.0.12
+=======
+  maven: circleci/maven@1.1
+>>>>>>> master
 
 workflows:
   maven_test:
     jobs:
+<<<<<<< HEAD
       - maven/test # checkout, build, test, and upload test results
+=======
+      - maven/test
+>>>>>>> master
