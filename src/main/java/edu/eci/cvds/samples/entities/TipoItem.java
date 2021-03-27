@@ -7,10 +7,7 @@ package edu.eci.cvds.samples.entities;
 
 import java.io.Serializable;
 
-/**
- *
- * @author 2106913
- */
+
 public class TipoItem implements Serializable{
     private int id;
     private String descripcion;
@@ -46,7 +43,7 @@ public class TipoItem implements Serializable{
 
     @Override
     public String toString() {
-        return "TipoItem{" + "id=" + id + ", descripcion=" + descripcion + '}';
+        return "--- TipoItem:  " + "id: " + id + ", descripcion: " + descripcion + '}';
     }
     
     

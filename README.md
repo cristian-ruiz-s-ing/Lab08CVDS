@@ -1,7 +1,6 @@
-### Escuela Colombiana de Ingeniería
-### Ciclos de Vida del desarrollo de Software – CVDS
-#### Integrantes:
+## Integrantes	
 
-Crhystian Camilo Molano Chacón
+    - Crhystian Camilo Molano Chacón
+    - Cristian Camilo Ruiz Santa
 
-Cristian Camilo Ruiz Santa
+## Integración contínua CircleCI y Heroku

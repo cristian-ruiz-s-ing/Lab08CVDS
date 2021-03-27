@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:p="http://primefaces.org/ui"
+        xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>Clientes</title>
+     <link rel="stylesheet" href="calStyle.css"></link>
+</h:head>
+
+<h:body>
+    
+    <h:form id="clientes_form" header="Clientes">
+        <div class="center">
+        <h1><p align="center" style="font-size:200%;">Registro de Clientes</p></h1>
+        <h2><p align="center" style="font-size:100%;">James Torres y Laura Izquierdo</p></h2>
+		<img src="https://kvizo.com.br/wp-content/uploads/2020/06/giphy-1.gif" alt="programing" style="width:140px;height:120px;"></img>
+        </div>
+    <h2> <p align="center"></p></h2>
+    <h2 style="color:black;text-align:center">Clientes Registrados</h2>
+    </h:form>
+    
+    <h:form>
+    <p:dataTable var="cliente" value="#{AlquilerItemsBean.consultaClientes()}" rows="15"
+                 paginator="true"
+                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}{RowsPerPageDropdown}"
+                 rowsPerPageTemplate="5,10,15">
+
+        <f:facet name="header">
+            Clientes:
+        </f:facet>
+    
+        <p:column headerText="nombre">
+            <h:outputText value="#{cliente.nombre}" />
+        </p:column>
+ 
+        <p:column headerText="documento">
+            <h:outputText value="#{cliente.documento}" />
+        </p:column>
+
+        <p:column headerText="telefono">
+            <h:outputText value="#{cliente.telefono}" />
+        </p:column>
+ 
+        <p:column headerText="direccion">
+            <h:outputText value="#{cliente.direccion}" />
+        </p:column>
+        
+        <p:column headerText="email">
+            <h:outputText value="#{cliente.email}" />
+        </p:column> 
+        <p:column headerText="Items">
+            <h:commandLink action="registroalquiler?faces-redirect = true" value="Items">
+                <f:setPropertyActionListener value="#{cliente}" target="#{AlquilerItemsBean.clienteUsado}"/>
+           </h:commandLink>
+        </p:column>
+    </p:dataTable>
+    
+
+    <h2 style="color:black;text-align:center">Registrar Cliente</h2>
+    <h3 style="color:black;text-align:center"> </h3>
+    <h3 style="color:black;text-align:center"> </h3>
+
+    
+    <p:panelGrid columns="5" style="max-width:500px;margin-left:auto;margin-right:auto; background-color: #3CBC8D">
+				<p:inputText style="font-weight:bold " width="50%" id="Nombre" placeholder="Nombre: " type="String" value="#{nombre}"/>
+				<p:inputText style="font-weight:bold " width="50%" id="Documento" placeholder="Documento: " type="long" value="#{documento}" />
+				<p:inputText style="font-weight:bold " width="50%" id="Telefono" placeholder="Telefono: " type="String" value="#{telefono}" />
+                <p:inputText style="font-weight:bold "  width="50%" id="Direccion" placeholder="Direccion: " type="String" value="#{direccion}" />
+                <p:inputText style="font-weight:bold "  width="50%" id="Email" placeholder="Email: " type="String" value="#{email}" />
+    </p:panelGrid>
+
+    <p:panelGrid columns="1" style="max-width:500px;margin-left:auto;margin-right:auto;">
+				<p:commandButton align="center" style="background-color: #3CBC8D" value="registrar" class="Button" action="registrocliente?faces-redirect = true" actionListener="#{AlquilerItemsBean.registrarCliente(nombre, documento, telefono, direccion, email)}"/>
+	</p:panelGrid>
+
+    </h:form>
+    </h:body>
+</html>

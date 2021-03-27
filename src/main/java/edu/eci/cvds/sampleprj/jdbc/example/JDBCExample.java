@@ -26,112 +26,121 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author hcadavid
- */
 public class JDBCExample {
-	public static void main(String args[]){        
-		try {            
-			String url="jdbc:mysql://desarrollo.is.escuelaing.edu.co:3306/bdprueba";
-			String driver="com.mysql.jdbc.Driver";            
-			String user="bdprueba";            
-			String pwd="prueba2019";            
-			Class.forName(driver);            
-			Connection con=DriverManager.getConnection(url,user,pwd);
-            			con.setAutoCommit(false);
-                 
-            
-            			System.out.println("Valor total pedido 1:"+valorTotalPedido(con, 1));
-            
-            			List<String> prodsPedido=nombresProductosPedido(con, 1);
-            
-            
-            			System.out.println("Productos del pedido 1:");
-			System.out.println("-----------------------");
-            			for (String nomprod:prodsPedido){
-	                		System.out.println(nomprod);
-            			}
-            			System.out.println("-----------------------");
-            
-            
-	            		int suCodigoECI=20134423;
-            			registrarNuevoProducto(con, suCodigoECI, "SU NOMBRE", 99999999);            
-	            		con.commit();
+
+    private static PreparedStatement prepare = null;
+    
+    public static void main(String args[]){
+        try {
+            String url="jdbc:mysql://desarrollo.is.escuelaing.edu.co:3306/bdprueba";
+            String driver="com.mysql.jdbc.Driver";
+            String user="bdprueba";
+            String pwd="prueba2019";
                         
+            Class.forName(driver);
+            Connection con=DriverManager.getConnection(url,user,pwd);
+            con.setAutoCommit(false);
             
-            			con.close();
+            System.out.println("Valor total pedido 1:" + valorTotalPedido(con, 1));
+            
+            List<String> prodsPedido=nombresProductosPedido(con, 1);
+            
+            System.out.println("Productos del pedido 1:");
+            System.out.println("-----------------------");
+            for (String nomprod:prodsPedido){
+                System.out.println(nomprod);
+            }
+            System.out.println("-----------------------");
+
+            int suCodigoECI=2128980;
+            registrarNuevoProducto(con, suCodigoECI, "prueba 2", 21500);            
+            con.commit();      
+            
+            con.close();
                                    
-        		} catch (ClassNotFoundException | SQLException ex) {
-            			Logger.getLogger(JDBCExample.class.getName()).log(Level.SEVERE, null, ex);
-        		}
-        
-        
-	}
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(JDBCExample.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
     
-    	/**
-	* Agregar un nuevo producto con los parámetros dados
-	* @param con la conexión JDBC
-     	* @param codigo
-     	* @param nombre
-     	* @param precio
-     	* @throws SQLException 
-     	*/
-    	public static void registrarNuevoProducto(Connection con, int codigo, String nombre,int precio) throws SQLException{
-        		//Crear preparedStatement
-        		//Asignar parámetros
-        		//usar 'execute'
-
-        
-        		con.commit();
-        
-    	}
+    /**
+     * Agregar un nuevo producto con los parámetros dados
+     * @param con la conexión JDBC
+     * @param codigo el código del producto
+     * @param nombre el nombre del producto
+     * @param precio el precio del producto
+     * @throws SQLException 
+     */
+    public static void registrarNuevoProducto(Connection con, int codigo, String nombre, int precio) throws SQLException{
+        try{
+            //Crear preparedStatement
+            prepare = con.prepareStatement("insert into ORD_PRODUCTOS values (?,?,?)");
+            //Asignar parámetros
+            prepare.setInt(1, codigo);
+            prepare.setString(2, nombre);
+            prepare.setInt(3, precio);
+            //Usar 'execute'
+            prepare.executeUpdate();
+            con.commit();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
     
-    	/**
-     	* Consultar los nombres de los productos asociados a un pedido
-     	* @param con la conexión JDBC
-     	* @param codigoPedido el código del pedido
-     	* @return 
-     	*/
-    	public static List<String> nombresProductosPedido(Connection con, int codigoPedido){
-        		List<String> np=new LinkedList<>();
+    /**
+     * Consultar los nombres de los productos asociados a un pedido
+     * @param con la conexión JDBC
+     * @param codigoPedido el código del pedido
+     * @return 
+     */
+    public static List<String> nombresProductosPedido(Connection con, int codigoPedido){
+        List<String> np=new LinkedList<>();
 
-        		//Crear prepared statement
-		String updateString = "actualizar Productos donde codigoPedido = ?";
-		PreparedStatement nprod = con.prepareStatement(updateString);
-
-        		//asignar parámetros
-		nprod.setInt(1, e.getValue().intValue());
-
-        		//usar executeQuery
-		ResultSet result = nprod.executeQuery();
-
-        		//Sacar resultados del ResultSet
-
-        		//Llenar la lista y retornarla
-        
-        		return np;
-    	}
-
-    
-    	/**
-     	* Calcular el costo total de un pedido
-     	* @param con
-    	* @param codigoPedido código del pedido cuyo total se calculará
-     	* @return el costo total del pedido (suma de: cantidades*precios)
-     	*/
-    	public static int valorTotalPedido(Connection con, int codigoPedido){
-        
-        		//Crear prepared statement
-        		//asignar parámetros
-        		//usar executeQuery
-        		//Sacar resultado del ResultSet
-        
-        		return 0;
-    	}
-    
+        String query = "select nombre from ORD_DETALLE_PEDIDO as pe join ORD_PRODUCTOS as pd on (pe.producto_fk = pd.codigo) where pe.pedido_fk = ?;";
+        try{
+            //Crear preparedStatement
+            prepare = con.prepareStatement(query);
+            //Asignar parámetros
+            prepare.setInt(1, codigoPedido);
+            //Usar executeQuery
+            ResultSet rs = prepare.executeQuery();
+            //Sacar resultados del ResultSet
+            while (rs.next()){
+                //Llenar la lista y retornarla
+                np.add(rs.getString(1));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return np;
+    }
 
     
-    
-    
+    /**
+     * Calcular el costo total de un pedido
+     * @param con
+     * @param codigoPedido código del pedido cuyo total se calculará
+     * @return el costo total del pedido (suma de: cantidades*precios)
+     */
+    public static int valorTotalPedido(Connection con, int codigoPedido){
+        
+        String query = "SELECT SUM(pe.cantidad * pd.precio) FROM ORD_DETALLE_PEDIDO as pe join ORD_PRODUCTOS as pd on (pe.producto_fk = pd.codigo) WHERE pe.pedido_fk = ?";
+        int total = 0;
+        try{
+            //Crear prepared statement
+            prepare = con.prepareStatement(query);
+            //Asignar parámetros
+            prepare.setInt(1, codigoPedido);
+            //Usar executeQuery
+            ResultSet rs = prepare.executeQuery();
+            //Sacar resultado del ResultSet
+            while (rs.next()){
+                total = rs.getInt(1);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } 
+        return total;    
+    }
 }

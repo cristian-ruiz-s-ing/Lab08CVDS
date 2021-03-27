@@ -1,11 +1,20 @@
 package edu.eci.cvds.sampleprj.dao;
 
+import java.util.List;
+
 import edu.eci.cvds.samples.entities.Item;
 
 public interface ItemDAO {
+	
+	
+	public void save(Item it) throws PersistenceException;
+	
+	public Item load(int id) throws PersistenceException;
+	
+	public List<Item> consultarItemsDisponibles() throws PersistenceException;
 
-    public void save(Item it) throws PersistenceException;
+	public int valorMultaXDia(int itemId) throws PersistenceException;
 
-    public Item load(int id) throws PersistenceException;
+	public long costoAlquiler(int iditem, int numdias) throws PersistenceException;
 
 }

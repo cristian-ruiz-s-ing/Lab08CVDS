@@ -7,7 +7,6 @@ package edu.eci.cvds.samples.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Cliente implements Serializable{
     
@@ -102,7 +101,7 @@ public class Cliente implements Serializable{
 
     @Override
     public String toString() {
-        return "Cliente{" + "nombre=" + nombre + ", documento=" + documento + ", rentados=\n\t" + rentados + '}';
+        return "Cliente: " + "nombre: " + nombre + ", documento: " + documento +", direccion: " + direccion + ", email: " + email +", --- rentados: \n\t" + rentados + '.';
     }
 
    
